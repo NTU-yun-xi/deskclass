@@ -1,33 +1,201 @@
-#include<iostream>
-#include<string>
-using namespace std;
-class Desk
-{
+//#include<iostream>
+//#include<string>
+//#include<cmath>
+//using namespace std;
+//class shape
+//{
+//public:
+//	string getShapeName() {
+//		return shapename;
+//	}
+//	shape(string name) {
+//		shapename = name;
+//	}
+//protected:
+//	string shapename;
+//	double area;
+//};
+//class circle : public shape
+//{
+//	public:
+//	double getCircleArea() {
+//		return area;
+//	}
+//	double getCircleRadius() {
+//		return radius;
+//	}
+//	circle(double r) : shape("circle") {
+//		radius = r;
+//		area = 3.14 * radius * radius;
+//	}
+//	private:
+//		double radius;
+//};
+//class polygon : public shape
+//{
+//	public:
+//	double getPolygonArea() {
+//		return area;
+//	}
+//	double getPolygonSide1() {
+//		return side1;
+//	}
+//	double getPolygonSide2() {
+//		return side2;
+//	}
+//	double getPolygonSide3() {
+//		return side3;
+//	}
+//	polygon(double a, double b) : shape("sibianxin") {
+//		side1 = a;
+//		side2 = b;
+//		area = side1 * side2;
+//	}
+//	polygon(double a, double b, double c) : shape("triangle") {
+//		side1 = a;
+//		side2 = b;
+//		side3 = c;
+//		double s = (side1 + side2 + side3) / 2;
+//		area = sqrt(s * (s - side1) * (s - side2) * (s - side3));
+//	}
+//	private:
+//		double side1;
+//		double side2;
+//		double side3;
+//};
+//class PolygonDesk: public polygon
+//{
+//public:
+//	double getHeight() {
+//		return height;
+//	}	
+//	string getShapeName() {
+//		return "PolygonDesk";
+//	}
+//	PolygonDesk(double a, double b,double c) : polygon(a, b) {
+//	
+//		height = c;
+//	}
+//	PolygonDesk(double a, double b,double c,double d) : polygon(a, b, c) {
+//		height = d;
+//	}
+//private:
+//	double height;
+//};
+//class CircleDesk : public circle
+//{
+//public:
+//	double getHeight() {
+//		return height;
+//	}
+//	CircleDesk(double r, double h) : circle(r) {
+//		height = h;
+//	}
+//	string getShapeName() {
+//		return "CircleDesk";
+//	}
+//private:
+//	double height;
+//};
+#include <string>
+#include <cmath>
+
+class Shape {
 public:
-	double getDeskWidth() {
-		return width;
-	}
-	double getDeskHeight() {
-		return height;
-	}
-	double getDeskLength() {
-		return length;
-	}
-	string getDeskShape() {
-		return shape;
-	}
-	double getDeskArea() {
-		return width * length;
-	}
-	Desk(double a, double b, double c, string d) {
-		length = a;
-		width = b;
-		height = c;
-		shape = d;
-	}
+    virtual ~Shape() = default; // 虚析构函数
+    virtual double getArea() const = 0; // 纯虚函数
+    virtual string getShapeName() const = 0;
+};
+
+class Circle : public Shape {
+public:
+    Circle(double radius) : radius_(radius) {}
+    double getArea() const override {
+        return 3.14159 * radius_ * radius_;
+    }
+    string getShapeName() const override {
+        return "Circle";
+    }
+    double getRadius() const { return radius_; }
+
 private:
-	double width;
-	double height;
-	double length;
-	string shape;
+    double radius_;
+};
+
+class Polygon : public Shape {
+public:
+    virtual ~Polygon() = default;
+};
+
+class Rectangle : public Polygon {
+public:
+    Rectangle(double length, double width) : length_(length), width_(width) {}
+    double getArea() const override {
+        return length_ * width_;
+    }
+    string getShapeName() const override {
+        return "Rectangle";
+    }
+    double getLength() const { return length_; }
+    double getWidth() const { return width_; }
+
+private:
+    double length_;
+    double width_;
+};
+
+class Triangle : public Polygon {
+public:
+    Triangle(double a, double b, double c) : a_(a), b_(b), c_(c) {}
+    double getArea() const override {
+        double s = (a_ + b_ + c_) / 2;
+        return sqrt(s * (s - a_) * (s - b_) * (s - c_));
+    }
+    string getShapeName() const override {
+        return "Triangle";
+    }
+    double getSideA() const { return a_; }
+    double getSideB() const { return b_; }
+    double getSideC() const { return c_; }
+
+private:
+    double a_, b_, c_;
+};
+
+// 桌子的基类
+class Desk {
+public:
+    Desk(double height) : height_(height) {}
+    virtual ~Desk() = default;
+    double getHeight() const { return height_; }
+
+private:
+    double height_;
+};
+
+class RectangleDesk : public Desk, public Rectangle {
+public:
+    RectangleDesk(double length, double width, double height)
+        : Desk(height), Rectangle(length, width) {}
+    string getShapeName() const override {
+        return "RectangleDesk";
+    }
+};
+
+class CircleDesk : public Desk, public Circle {
+public:
+    CircleDesk(double radius, double height)
+        : Desk(height), Circle(radius) {}
+    string getShapeName() const override {
+        return "CircleDesk";
+    }
+};
+
+class TriangleDesk : public Desk, public Triangle {
+public:
+    TriangleDesk(double a, double b, double c, double height)
+        : Desk(height), Triangle(a, b, c) {}
+    string getShapeName() const override {
+        return "TriangleDesk";
+    }
 };
