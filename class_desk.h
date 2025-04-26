@@ -1,109 +1,11 @@
-//#include<iostream>
-//#include<string>
-//#include<cmath>
-//using namespace std;
-//class shape
-//{
-//public:
-//	string getShapeName() {
-//		return shapename;
-//	}
-//	shape(string name) {
-//		shapename = name;
-//	}
-//protected:
-//	string shapename;
-//	double area;
-//};
-//class circle : public shape
-//{
-//	public:
-//	double getCircleArea() {
-//		return area;
-//	}
-//	double getCircleRadius() {
-//		return radius;
-//	}
-//	circle(double r) : shape("circle") {
-//		radius = r;
-//		area = 3.14 * radius * radius;
-//	}
-//	private:
-//		double radius;
-//};
-//class polygon : public shape
-//{
-//	public:
-//	double getPolygonArea() {
-//		return area;
-//	}
-//	double getPolygonSide1() {
-//		return side1;
-//	}
-//	double getPolygonSide2() {
-//		return side2;
-//	}
-//	double getPolygonSide3() {
-//		return side3;
-//	}
-//	polygon(double a, double b) : shape("sibianxin") {
-//		side1 = a;
-//		side2 = b;
-//		area = side1 * side2;
-//	}
-//	polygon(double a, double b, double c) : shape("triangle") {
-//		side1 = a;
-//		side2 = b;
-//		side3 = c;
-//		double s = (side1 + side2 + side3) / 2;
-//		area = sqrt(s * (s - side1) * (s - side2) * (s - side3));
-//	}
-//	private:
-//		double side1;
-//		double side2;
-//		double side3;
-//};
-//class PolygonDesk: public polygon
-//{
-//public:
-//	double getHeight() {
-//		return height;
-//	}	
-//	string getShapeName() {
-//		return "PolygonDesk";
-//	}
-//	PolygonDesk(double a, double b,double c) : polygon(a, b) {
-//	
-//		height = c;
-//	}
-//	PolygonDesk(double a, double b,double c,double d) : polygon(a, b, c) {
-//		height = d;
-//	}
-//private:
-//	double height;
-//};
-//class CircleDesk : public circle
-//{
-//public:
-//	double getHeight() {
-//		return height;
-//	}
-//	CircleDesk(double r, double h) : circle(r) {
-//		height = h;
-//	}
-//	string getShapeName() {
-//		return "CircleDesk";
-//	}
-//private:
-//	double height;
-//};
+
 #include <string>
 #include <cmath>
 
 class Shape {
 public:
-    virtual ~Shape() = default; // 虚析构函数
-    virtual double getArea() const = 0; // 纯虚函数
+    virtual ~Shape() = default; 
+    virtual double getArea() const = 0; 
     virtual string getShapeName() const = 0;
 };
 
@@ -162,7 +64,7 @@ private:
     double a_, b_, c_;
 };
 
-// 桌子的基类
+
 class Desk {
 public:
     Desk(double height) : height_(height) {}
